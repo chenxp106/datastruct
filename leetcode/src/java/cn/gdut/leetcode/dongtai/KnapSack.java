@@ -1,24 +1,38 @@
 package cn.gdut.leetcode.dongtai;
 
+import java.util.Map;
+
 public class KnapSack {
     public int knapSack(int W,int N,int[] weights,int[] values){
-        //定义二维数组用于存放前i键物品体积不超过j的情况下能达到的最大价值。
+        /*//定义二维表示前i件物品体积不超过j的情况下达到的最大价值。
         int[][] dp = new int[N+1][W+1];
         for (int i = 1;i<=N;i++){
             int w = weights[i-1];
             int v = values[i-1];
             for (int j = 1;j<=W;j++){
-                //当能放入这个物品时，取放入的情况与不放的最大值。
+                //如果放的下，则取当前放下的最大值dp[i-1][j-w]+v和   前一个的较大者dp[ i-1][j]
                 if (j>=w){
-                    dp[i][j] = Math.max(dp[i-1][j],dp[i-1][j-w]+v);
+                    dp[i][j] = Math.max(dp[i-1][j],dp[i-1][j-w] + v);
                 }
-                //背包不足于放入物品的时候。即不放入。dp的值取dp[i-1][j];
+                //如果放不下，则取之前的拿个值。dp[i-1][j]
                 else {
                     dp[i][j] = dp[i-1][j];
                 }
             }
         }
-        return dp[N][W];
+        return dp[N][W];*/
+
+        int[] dp = new int[W+1];
+        for (int i = 1;i<=N;i++){
+            int w = weights[i-1];
+            int v = values[i-1];
+            for (int j = W;j>=1;j--){
+                if (j>=w){
+                    dp[j] = Math.max(dp[j],dp[j-w]+v);
+                }
+            }
+        }
+        return dp[W];
     }
 
     public static void main(String[] args) {
