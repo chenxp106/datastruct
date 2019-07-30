@@ -12,42 +12,23 @@ public class Test257 {
         if (root == null){
             return paths;
         }
-        List<Integer> values = new ArrayList<>();
-        tracting(root,paths,values);
-        return paths;
 
+        sole(root,"",paths);
+        return paths;
     }
 
-    private void tracting(TreeNode root,List<String> paths,List<Integer> values){
+    private void sole(TreeNode root,String cur,List<String> ret){
         if (root == null){
             return;
         }
-        // 将值添加到val中
-        values.add(root.val);
-        // 如果是叶子节点，则直接建立路径并返回
-        if (isLeft(root)){
-            paths.add(buildPath(values));
+        cur += root.val;
+        if (root.left == null && root.right == null){
+            ret.add(cur);
         }
-        // 否则，递归
-        tracting(root.left,paths,values);
-        tracting(root.right,paths,values);
-        // 将该值从values中移除
-        values.remove(values.size() - 1);
-
-    }
-
-    private boolean isLeft(TreeNode root){
-        return root.left == null && root.right == null;
-    }
-
-    private String buildPath(List<Integer> values){
-        StringBuilder str = new StringBuilder();
-        for (int i = 0;i<values.size();i++){
-            str.append(values.get(i));
-            if (i != values.size() -1){
-                str.append("->");
-            }
+        else {
+            sole(root.left,cur+"->",ret);
+            sole(root.right,cur+"->",ret);
         }
-        return str.toString();
     }
+
 }
