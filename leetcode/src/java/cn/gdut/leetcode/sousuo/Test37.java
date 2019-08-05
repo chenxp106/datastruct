@@ -7,7 +7,7 @@ public class Test37 {
     private boolean[][] cubesUsed = new boolean[9][10];
     private char[][] board;
 
-    public void sovleSudoku(char[][] board){
+    /*public void sovleSudoku(char[][] board){
         this.board = board;
         for (int i = 0; i < 9; i++){
             for (int j = 0;j < 9;j++){
@@ -28,6 +28,7 @@ public class Test37 {
     }
 
     private boolean tracking( int row, int col){
+        // 找到第一个空格
         while (row < 9 && board[row][col] != '.'){
             row = col == 8 ? row + 1 : row;
             col = col == 8 ? 0 : col + 1;
@@ -58,7 +59,65 @@ public class Test37 {
         int r  = i / 3;
         int c = j / 3;
         return  r * 3 + c;
+    }*/
+
+    public void solveSudoku(char[][] board){
+        this.board = board;
+        for (int i = 0;i<9;i++){
+            for (int j = 0;j<9;j++){
+                // 如果没有值，直接跳过
+                if (board[i][j] == '.'){
+                    continue;
+                }
+                // 记录当前值的使用情况
+                int num = board[i][j] - '0';
+                rowsUsed[i][num] = true;
+                colsUsed[j][num] = true;
+                cubesUsed[cebes(i,j)][num] = true;
+            }
+        }
+        // 从第一个开始遍历
+        tracking(0,0);
     }
 
+    private boolean tracking(int row, int col){
+        while (row < 9 && board[row][col] != '.'){
+            row = col == 8 ? row+1 : row;
+            col = col == 8 ? 0 : col +1;
+        }
+        if (row == 9){
+            return true;
+        }
+        // 将数字填入
+        for (int num = 1;num<=9 ;num++){
+            if (colsUsed[col][num] || rowsUsed[row][num] || cubesUsed[cebes(row,col)][num]){
+                continue;
+            }
+            // 标记
+            colsUsed[col][num] = true;
+            rowsUsed[row][num] = true;
+            cubesUsed[cebes(row,col)][num] = true;
+
+            // 将该数填入
+            board[row][col] = (char)(num + '0');
+            // 如果符合,则继续填入下一个数。递归
+            if (tracking(row,col)){
+                return true;
+            }
+            // 否则，回溯，并标记回宫格
+            board[row][col] = '.';
+            colsUsed[col][num] = false;
+            rowsUsed[row][num] = false;
+            cubesUsed[cebes(row,col)][num] = false;
+        }
+        return false;
+    }
+
+
+    private int cebes(int i,int j){
+        int r = i / 3;
+        int c = j / 3;
+        return r * 3 + c;
+    }
 
 }
