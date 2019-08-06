@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Test51 {
 
-    private List<List<String>> solutions;
+    /*private List<List<String>> solutions;
     private char[][] nQueens;
     private boolean[] colUsed;
     private boolean[] diagonals45Used;
@@ -56,6 +56,57 @@ public class Test51 {
             colUsed[col] = diagonal135Used[diagonals135Idx] = diagonals45Used[diagonals45Idx] = false;
             // 重新标记
             nQueens[row][col] = '.';
+        }
+    }*/
+
+    private List<List<String>> solution;
+    private char[][] nQueen;
+    private boolean[] arr45Used;
+    private boolean[] arr135Used;
+    private int n;
+    private boolean[] colUsed;
+
+    public List<List<String>> solveNQuenes(int n){
+        solution = new ArrayList<>();
+        nQueen =new  char[n][n];
+        // 构建一个围棋
+        for (int i = 0;i<n;i++){
+            for (int j = 0;j<n;j++){
+                nQueen[i][j] = '.';
+            }
+        }
+
+        colUsed = new boolean[n];
+        arr45Used = new boolean[2 * n -1];
+        arr135Used = new boolean[2 * n -1];
+        this.n = n;
+        // 初始化赋值
+        tracking(0);
+        return solution;
+    }
+
+    private void tracking(int row){
+
+        if (row == n){
+            List<String> list = new ArrayList<>();
+            for (char[] chars : nQueen){
+                list.add(new String(chars));
+            }
+            solution.add(list);
+            return;
+        }
+        // 循环每一列
+        for (int col = 0;col<n;col++){
+            int arr45Idx = row + col;
+            int arr135Idx = n - 1 - (row - col);
+            if (arr45Used[arr45Idx] || arr135Used[arr135Idx] || colUsed[col]){
+                continue;
+            }
+            nQueen[row][col] = 'Q';
+            arr45Used[arr45Idx] = arr135Used[arr135Idx] = colUsed[col] = true;
+            tracking(row+1);
+            arr45Used[arr45Idx] = arr135Used[arr135Idx] = colUsed[col] = false;
+            nQueen[row][col] = '.';
         }
     }
 }
