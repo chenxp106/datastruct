@@ -10,11 +10,12 @@ public class Test226 {
 
     private TreeNode deal(TreeNode root){
         if (root == null){
-            return root;
+            return null;
         }
-        TreeNode temp = root.right;
-        root.right = deal(root.left);
-        root.left = deal(temp);
+        // 现将一个节点保存下来
+        TreeNode temp = root.left;
+        root.left = deal(root.right);
+        root.right = deal(temp);
         return root;
     }
 }
