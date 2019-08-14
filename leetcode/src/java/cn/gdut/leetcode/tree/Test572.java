@@ -4,22 +4,28 @@ import cn.gdut.leetcode.util.TreeNode;
 
 public class Test572 {
     public boolean isSubtree(TreeNode s, TreeNode t){
-        if (s == null){
-            return false;
-        }
-        return isSubtreewithRoot(s,t) || isSubtree(s.left, t) || isSubtree(s.right, t);
+       if (s == null){
+           return false;
+       }
+       return isSubtr(s,t) || isSubtr(s.left,t) || isSubtr(s.right, t);
+
     }
 
-    private boolean isSubtreewithRoot(TreeNode s, TreeNode t){
-        if (t == null && s == null){
+    public boolean isSubtr(TreeNode s, TreeNode t){
+        // 都为空，则返回true
+        if (s == null && t == null){
             return true;
         }
-        if (t == null || s == null){
+        // 有一个不为空，返回false
+        if (s == null || t == null){
             return false;
         }
-        if (t.val != s.val){
+        // 都不为空, 判断值是否相等
+        if (s.val != t.val){
             return false;
         }
-        return isSubtreewithRoot(s.left, t.left) && isSubtreewithRoot(s.right, t.right);
+        // 递归左右子树
+        return  isSubtr(s.left,t.left) && isSubtr(s.right, t.right);
     }
+
 }
