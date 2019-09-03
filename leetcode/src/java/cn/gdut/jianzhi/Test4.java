@@ -6,19 +6,23 @@ public class Test4 {
         if (array == null || array.length == 0 || array[0].length == 0){
             return false;
         }
-        int r = array.length - 1;
-        int c = array[0].length - 1;
-        int i = c;
-        int j = 0;
-        while (i >= 0 && j<= r){
-            if (target == array[j][i]){
+        int row = array.length - 1 ;
+        int clow = array[0].length - 1;
+        int i = 0;
+        // 防止数组越界
+        int j = clow;
+        // 从右上角到左下角进行遍历
+        while (i<=row && j>=0){
+            // 如果找到这个值，则直接退出
+            if (array[i][j] == target){
                 return true;
             }
-            if (target < array[j][i]){
-                i--;
+            // 如果target<arrar
+            else if (target < array[i][j]){
+                j--;
             }
             else {
-                j++;
+                i++;
             }
         }
         return false;
@@ -31,7 +35,7 @@ public class Test4 {
                 {3, 6, 9, 16, 22},
                 {10, 13, 14, 17, 24},
                 {18, 21, 23, 26, 30}};
-        int target = 24;
+        int target = 20;
         Test4 test4 = new Test4();
         System.out.println(test4.Find(target, array));
     }
