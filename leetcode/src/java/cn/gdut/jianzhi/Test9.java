@@ -11,7 +11,7 @@ public class Test9 {
     }
 
     public int pop(){
-        // 如果栈为空，则从栈1中的所有元素出栈到栈2中。
+        // 如果栈2为空，则将栈1的全部元素
         if (stack2.isEmpty()){
             while (!stack1.isEmpty()){
                 stack2.push(stack1.pop());
