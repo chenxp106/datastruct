@@ -11,11 +11,11 @@ public class Test12 {
         }
         this.rows = rows;
         this.cols = cols;
+        char[][] matrx = build(matrix, rows, cols);
         boolean [][] marked = new boolean[rows][cols];
-        char[][] matri = build(matrix);
-        for (int i = 0;i < rows;i++){
-            for (int j = 0;j < cols;j++){
-                if (backtracking(matri,str,marked,0,i,j)){
+        for (int i = 0; i < rows;i++){
+            for (int j = 0; j < cols;j++){
+                if (backtracking(matrx,0,i,j,marked,str)){
                     return true;
                 }
             }
@@ -23,33 +23,35 @@ public class Test12 {
         return false;
     }
 
-    private boolean backtracking(char[][] matrix, char[] str, boolean[][] marked, int pathLen, int r, int c){
-        if (pathLen == str.length){
+    private boolean backtracking(char[][] matrix, int pathLen, int r, int c,boolean[][] marked, char[] str){
+        if (str.length == pathLen){
             return true;
         }
-        if (r < 0 || r >= rows || c < 0 || c>= cols || matrix[r][c] != str[pathLen] || marked[r][c]){
+        if (r < 0 || r >= rows || c < 0 || c >= cols || matrix[r][c] != str[pathLen] || marked[r][c]){
             return false;
         }
+        // 标记访问过
         marked[r][c] = true;
-        for (int [] n : next){
-            if (backtracking(matrix, str, marked, pathLen+1, r+n[0],c+n[1])){
+        for (int [] x : next){
+            if (backtracking(matrix,pathLen + 1,r + x[0], c + x[1],marked,str))
                 return true;
-            }
         }
         marked[r][c] = false;
         return false;
     }
 
-    private char[][] build(char[] array){
+    private char[][] build(char[] array, int rows, int cols){
         int idx = 0;
-        char[][] matrix = new char[rows][cols];
-        for (int r = 0;r<rows;r++){
-            for (int c = 0;c < cols;c++){
-                matrix[r][c] = array[idx++];
+        char[][] matri = new char[rows][cols];
+        for (int i = 0;i < rows ;i++){
+            for (int j = 0 ;j < cols;j++){
+                matri[i][j] = array[idx++];
             }
         }
-        return matrix;
+        return matri;
     }
+
+
 
     public static void main(String[] args) {
         char[] matrx = {'A','B','C','E','S','F','C','S','A','D','E','E'};
@@ -57,6 +59,7 @@ public class Test12 {
         int col = 4;
         char[] path = {'A','B','C','C'};
         Test12 test12 = new Test12();
+//        System.out.println(test12.build(matrx,row,col));
         System.out.println(test12.hasPath(matrx,row,col,path));
     }
 }
