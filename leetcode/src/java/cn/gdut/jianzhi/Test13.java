@@ -2,43 +2,41 @@ package cn.gdut.jianzhi;
 
 public class Test13 {
 
-    private static final int[][] next = {{-1,0},{1,0},{0,1},{0,-1}};
-    private int cnt = 0;
+    private final static int[][] next = {{0,1},{0,-1},{1,0},{-1,0}};
     private int rows;
     private int cols;
     private int threshold;
-    // 用于存储每一个点中各个位数的和
-    private int [][] digitSum;
+    // 用于存储每个节点中的数字和
+    private int [][] digistSum;
+    // 结果，count
+    private int cnt;
 
     public int movingCount(int threshold, int rows, int cols){
         this.rows = rows;
         this.cols = cols;
         this.threshold = threshold;
-        // 初始化每一个格子的的数字和
-        initDigitSum();
-        boolean[][] marked = new boolean[rows][cols];
-        dfs(marked, 0,0);
+        digist(rows, cols);
+        boolean [][] marked = new boolean[rows][cols];
+        dfs(marked, 0 ,0);
         return cnt;
 
     }
 
-    private void dfs(boolean[][] marked, int r, int c){
-        // 判断边界
-        if (r < 0 || r >= rows || c < 0 || c >= cols || marked[r][c]){
+    private void dfs(boolean [][] marked, int r, int c){
+        if (c < 0 || c >= cols || r < 0 || r >= rows || marked[r][c]){
             return;
         }
-        // 访问它
         marked[r][c] = true;
-        if (this.digitSum[r][c] > this.threshold){
+        if (this.digistSum[r][c] > this.threshold){
             return;
         }
         cnt++;
-        for (int[] n : next){
-            dfs(marked, r + n[0], c + n[1]);
+        for (int [] x : next){
+            dfs(marked, r + x[0], c + x[1]);
         }
     }
 
-    private void initDigitSum(){
+    private void digist(int rows, int cols){
         int[] digitSumOne = new int[Math.max(rows, cols)];
         for (int i = 0; i < digitSumOne.length; i++){
             int n = i;
@@ -47,14 +45,14 @@ public class Test13 {
                 n /= 10;
             }
         }
-
-        this.digitSum = new int[rows][cols];
-        for (int i = 0; i < this.rows; i++){
+        this.digistSum = new int[rows][cols];
+        for (int i = 0;i < this.rows; i++){
             for (int j = 0; j < this.cols; j++){
-                this.digitSum[i][j] = digitSumOne[i] + digitSumOne[j];
+                this.digistSum[i][j] = digitSumOne[i] + digitSumOne[j];
             }
         }
     }
+
 
     public static void main(String[] args) {
         Test13 test13 = new Test13();
