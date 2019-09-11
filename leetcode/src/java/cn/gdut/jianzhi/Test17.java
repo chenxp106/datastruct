@@ -1,5 +1,7 @@
 package cn.gdut.jianzhi;
 
+import java.util.HashMap;
+
 public class Test17 {
     public void print1ToMaxOfNDigits(int n){
         if (n <= 0){

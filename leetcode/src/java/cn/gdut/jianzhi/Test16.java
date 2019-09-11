@@ -25,16 +25,18 @@ public class Test16 {
         if (exponent == 1){
             return base;
         }
-        boolean isNegative = false ;
+        boolean isNegitave = false;
         if (exponent < 0){
+            isNegitave = true;
             exponent = -exponent;
-            isNegative = true;
         }
-        double pow = Power(base * base , exponent / 2);
-        if (exponent % 2 != 0){
+        double pow  = Math.pow(base * base ,exponent / 2);
+        if (exponent % 2 == 1){
             pow = base * pow;
         }
-        return isNegative ? 1 / pow : pow;
+        return isNegitave ? 1 / pow : pow;
     }
+
+
 
 }
