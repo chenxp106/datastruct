@@ -6,16 +6,15 @@ public class Test24 {
             return null;
         }
         ListNode newHead = new ListNode(-1);
-        ListNode p = head;
-        ListNode h = null;
-        newHead.next = h;
+        ListNode p = head, cur=null;
+        newHead.next = cur;
         while (p != null){
             ListNode next = p.next;
-            newHead.next = p ;
-            p.next = h;
-            h = p;
+            newHead.next = p;
+            p.next = cur;
+            cur = p;
             p = next;
         }
-        return h;
+        return newHead.next;
     }
 }

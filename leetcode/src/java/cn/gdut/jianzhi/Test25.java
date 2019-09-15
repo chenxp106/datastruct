@@ -2,33 +2,33 @@ package cn.gdut.jianzhi;
 
 public class Test25 {
     public ListNode Merge(ListNode list1,ListNode list2){
-        ListNode newHead = new  ListNode(-1);
-        ListNode cur = newHead;
-        // 循环两个链表
-        while (list1 != null && list2 != null){
-            ListNode p1 = list1;
-            ListNode p2 = list2;
-            // 如果大的，则将值连接到下面
-            if (p1.val <= p2.val){
-                list1 = list1.next;
+        //其中有一个为空，返回另一个
+        if (list1 == null){
+            return list2;
+        }
+        if (list2 == null){
+            return list1;
+        }
+        // 新建一个头节点
+        ListNode newHead = new ListNode(-1);
+        ListNode p1 = list1, p2 = list2, cur = newHead;
+        while (p1 != null && p2 != null){
+            if (p1.val < p2.val){
                 cur.next = p1;
-                cur = p1 ;
+                p1 = p1.next;
             }
-            // 否则，将另一个数连接下去
             else {
-                list2 = list2.next;
                 cur.next = p2;
-                cur = p2;
+                p2 = p2.next;
             }
+            cur = cur.next;
         }
-        // 如果有一个不为空，将剩下的值连接上去
-        if (list1 != null){
-            cur.next = list1;
+        if (p1 == null){
+            cur.next = p2;
         }
-        else {
-            cur.next = list2;
+        if (p2 == null){
+            cur.next = p1;
         }
-
         return newHead.next;
     }
 }

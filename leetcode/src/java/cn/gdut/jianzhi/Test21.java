@@ -2,19 +2,27 @@ package cn.gdut.jianzhi;
 
 public class Test21 {
     public void reOrderArray(int[] array) {
-        // 奇数个数
+        // 奇数的个数
         int oddCnt = 0;
-        for (int x : array)
-            if (!isEven(x))
-                oddCnt++;
         int[] copy = array.clone();
-        int i = 0, j = oddCnt;
-        for (int num : copy) {
-            if (num % 2 == 1)
-                array[i++] = num;
-            else
-                array[j++] = num;
+        for (int i = 0; i < array.length; i++){
+            if (!isEven(array[i])){
+                oddCnt++;
+            }
         }
+        // 从0开始存放偶数，
+        int i = 0;
+        // 从j开始存放偶数
+        int j = oddCnt;
+        for (int k = 0; k<copy.length;k++){
+            if (!isEven(copy[k])){
+                array[i++] = copy[k];
+            }
+            else {
+                array[j++] = copy[k];
+            }
+        }
+
     }
 
     private boolean isEven(int x) {
