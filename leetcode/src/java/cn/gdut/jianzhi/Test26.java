@@ -5,20 +5,20 @@ public class Test26 {
         if (root1 == null || root2 == null){
             return false;
         }
-        return isSubtreeWithRoot(root1, root2) || isSubtreeWithRoot(root1.left, root2) || isSubtreeWithRoot(root1.right, root2);
+        return isSys(root1,root2) || HasSubtree(root1.left, root2) || HasSubtree(root1.right, root2);
     }
 
-    private boolean isSubtreeWithRoot(TreeNode root1, TreeNode root2){
+    private boolean isSys(TreeNode root1, TreeNode root2){
         if (root2 == null){
             return true;
         }
-        if (root1 == null){
+        if (root1 == null ){
             return false;
         }
         if (root1.val != root2.val){
             return false;
         }
-        return isSubtreeWithRoot(root1.left, root2.left) && isSubtreeWithRoot(root1.right, root2.right);
-
+        return isSys(root1.left,root2.left) && isSys(root1.right, root2.right);
     }
+
 }
