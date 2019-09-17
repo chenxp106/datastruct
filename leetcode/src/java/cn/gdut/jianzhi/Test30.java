@@ -4,13 +4,14 @@ import java.util.Stack;
 
 public class Test30 {
 
-    private Stack<Integer> dataStack = new Stack<>();
-    private Stack<Integer> minStack = new Stack<>();
+    Stack<Integer> dataStack = new Stack<>();
+    Stack<Integer> minStack = new Stack<>();
 
     public void  push(int node){
+        // data正常入栈
         dataStack.push(node);
-        minStack.push(minStack.isEmpty() ? node : Math.min(minStack.peek(), node));
-
+        // 将更小的值入栈
+        minStack.push(minStack.isEmpty() ? node : Math.min(node, minStack.peek()));
     }
 
     public void  pop(){
@@ -18,7 +19,7 @@ public class Test30 {
         minStack.pop();
     }
 
-    public int top(){
+    public int top() {
         return dataStack.peek();
     }
 
