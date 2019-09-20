@@ -3,35 +3,42 @@ package cn.gdut.jianzhi;
 import java.util.ArrayList;
 
 public class Test34 {
-    //定义全局变量
+
     ArrayList<ArrayList<Integer>> ret = new ArrayList<>();
 
     public ArrayList<ArrayList<Integer>> FindPath(TreeNode root, int target){
-        track(root, target, new ArrayList<>());
+
+        if (root == null){
+            return ret;
+        }
+        track(new ArrayList<>(), root, target);
         return ret;
     }
 
-    private void track( TreeNode root, int target, ArrayList<Integer> path){
-        if (root == null ){
+    private void track(ArrayList<Integer> path, TreeNode node, int target){
+        if (node == null){
             return;
         }
-        path.add(root.val);
-        target -= root.val;
-        if (isLeft(root) && target == 0){
+        path.add(node.val);
+        target = target - node.val;
+        if (idLeaf(node) && target == 0){
             ret.add(new ArrayList<>(path));
         }
         else {
-            track(root.left, target, path);
-            track( root.right, target ,path);
+            track(path, node.left, target);
+            track(path, node.right, target);
         }
+
         path.remove(path.size() - 1);
 
     }
 
-    private boolean isLeft(TreeNode root){
-        if (root.left == null && root.right == null){
+    private boolean idLeaf(TreeNode node){
+        if (node.left ==null && node.right == null){
             return true;
         }
         return false;
     }
+
+
 }
