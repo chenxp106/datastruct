@@ -8,5 +8,6 @@ public class Test55_1 {
         int left = TreeDepth(root.left);
         int right = TreeDepth(root.right);
         return Math.max(left,right)+1;
+
     }
 }
