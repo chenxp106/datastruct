@@ -2,23 +2,30 @@ package cn.gdut.jianzhi;
 
 public class Test53 {
     public int GetNumberOfk(int [] array, int k){
+        int first = binarySerach(array, k);
+        int last =  binarySerach(array, k+1);
+        return last - first;
 
-        int first = binarySearch(array,k);
-        int last = binarySearch(array,k+1);
-        return (first == array.length || array[first] != k) ? 0 : last - first;
     }
-
-    private int binarySearch(int [] array, int k){
-        int l = 0, h = array.length;
-        while (l < h){
-            int mid = l + (h - l)/ 2;
-            if (k <= array[mid]){
-                h = mid;
+    private int binarySerach(int [] array, int k){
+        int l  = 0;
+        int h = array.length ;
+        while (l<h){
+            int mind = l + (h-l) / 2;
+            if (array[mind] >=k){
+                h=mind;
             }
             else {
-                l = mid + 1;
+                l = mind + 1;
             }
         }
         return l;
     }
+
+    public static void main(String[] args) {
+        int[] a = {1,1,2,3,4,5,5,5,6,6,6};
+        Test53 test53 = new Test53();
+        System.out.println(test53.GetNumberOfk(a,5));
+    }
+
 }
