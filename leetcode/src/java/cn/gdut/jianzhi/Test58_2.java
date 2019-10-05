@@ -5,10 +5,10 @@ public class Test58_2 {
         if (str == null || str.length() == 0){
             return "";
         }
-        int len = str.length();
-        char [] chars  = str.toCharArray();
-        reverse(chars, 0, n-1);
-        reverse(chars, n,len-1);
+        char [] chars = str.toCharArray();
+        int len = chars.length;
+        reverse(chars, 0,n-1);
+        reverse(chars, n, len-1);
         reverse(chars, 0, len-1);
         return new String(chars);
     }
