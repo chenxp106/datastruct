@@ -2,19 +2,16 @@ package cn.gdut.jianzhi;
 
 public class Test66 {
     public int [] nultipy(int [] A){
-        if (A == null || A.length == 0){
-            return null;
-        }
         int n = A.length;
-        int [] B1 = new int[n];
-        int [] B2 = new int[n];
-        int [] res = new int[n];
+        int[] B1 = new int[n];
+        int[] B2 = new int[n];
+        int[] res = new int[n];
         B1[0] = 1;
         B2[n-1] = 1;
         for (int i = 1;i<n;i++){
-            B1[i] = B1[i-1] * A[i-1];
+            B1[i] = A[i-1] * B1[i-1];
         }
-        for(int i = n-2;i >=0;i--){
+        for (int i= n-2;i>=0;i--){
             B2[i] = B2[i+1] * A[i+1];
         }
         for (int i = 0;i<n;i++){
