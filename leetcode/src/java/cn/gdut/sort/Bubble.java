@@ -8,16 +8,15 @@ public class Bubble {
      * 是一个稳定的排序算法
      * @param nums nums
      */
-    public void sort(int [] nums){
+    public void sort(int[] nums){
         int n = nums.length;
-        boolean isSorted = false;
-        for (int i = n - 1;i > 0 && !isSorted;i--){
-            // 轮训一次后还是有序，则退出不再判断
-            isSorted = true;
-            for (int j = 0; j<i;j++){
+        boolean isSort = false;
+        for (int i = 0;i<n-1 && !isSort;i++){
+            isSort = true;
+            for (int j = i;j<n-1;j++){
                 if (nums[j] > nums[j+1]){
-                    isSorted = false;
-                    swap(nums, j,j+1);
+                    isSort = false;
+                    swap(nums, j, j+1);
                 }
             }
         }
