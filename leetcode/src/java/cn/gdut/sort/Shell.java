@@ -1,14 +1,20 @@
 package cn.gdut.sort;
 
-public class Insertion {
+public class Shell {
     public void sort(int [] nums){
         int n = nums.length;
-        for (int i = 1;i<n;i++){
-            for (int j = i;j > 0 &&(nums[j] < nums[j-1]);j--){
-                swap(nums,j,j-1);
+        int h = n /2;
+        while (h >= 1){
+            for (int i = h;i<n;i++){
+                for (int j = i;j>=h && (nums[j] < nums[j-h]);j-=h){
+                    swap(nums, j, j-h);
+                }
             }
+            h= h/2;
         }
+
     }
+
     private void swap(int [] a, int i, int j){
         int t = a[i];
         a[i] = a[j];
@@ -16,13 +22,12 @@ public class Insertion {
     }
 
     public static void main(String[] args) {
-        Insertion insertion = new Insertion();
-        int [] nums = {10,6,4,2,7,3,9};
-        insertion.sort(nums);
+        Shell shell = new Shell();
+        int [] nums = {6,5,4,3,2,1};
+        shell.sort(nums);
         for (int n : nums){
             System.out.println(n);
         }
 
     }
-
 }
